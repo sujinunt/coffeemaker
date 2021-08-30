@@ -19,6 +19,8 @@
 package edu.ncsu.csc326.coffeemaker;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +45,7 @@ public class CoffeeMakerTest {
 	private Recipe recipe2;
 	private Recipe recipe3;
 	private Recipe recipe4;
+	private Recipe recipe5;
 
 	/**
 	 * Initializes some recipes to test with and the {@link CoffeeMaker} 
@@ -90,8 +93,92 @@ public class CoffeeMakerTest {
 		recipe4.setAmtMilk("1");
 		recipe4.setAmtSugar("1");
 		recipe4.setPrice("65");
+		
+		//Set up for r5
+		recipe5 = new Recipe();
+		recipe5.setName("Milo");
+		recipe5.setAmtChocolate("5");
+		recipe5.setAmtCoffee("0");
+		recipe5.setAmtMilk("10");
+		recipe5.setAmtSugar("10");
+		recipe5.setPrice("20");
 	}
 	
+	/**
+	 * Given a coffee maker with valid recipe
+	 * Then we not get any error.
+	 */
+	@Test
+	public void testAddRecipe() {
+		assertTrue(coffeeMaker.addRecipe(recipe1));
+		assertTrue(coffeeMaker.addRecipe(recipe2));
+		assertTrue(coffeeMaker.addRecipe(recipe3));
+		assertTrue(coffeeMaker.addRecipe(recipe4));
+	}
+	
+	/**
+	 * Given a coffee maker with duplicate recipe
+	 * Then we should get false because we got the same recipe.
+	 */
+	@Test
+	public void testAddDuplicateRecipe() {
+		coffeeMaker.addRecipe(recipe5);
+		assertFalse(coffeeMaker.addRecipe(recipe5));
+	}
+	
+	/**
+	 * Given a coffee maker with one valid recipe.
+	 * When we delete a recipe.
+	 * Then we should get the coffee name that we delete.
+	 */
+	@Test
+	public void testDeleteRecipe(){
+		coffeeMaker.addRecipe(recipe1);
+		coffeeMaker.addRecipe(recipe2);
+		assertEquals("Mocha", coffeeMaker.deleteRecipe(1));
+	}
+
+	/**
+	 * Given a coffee maker with nothing
+	 * When we delete the recipe in the empty recipe list.
+	 * Then we should get null.
+	 */
+	@Test 
+	public void testDeleteRecipeInEmptyList(){
+		assertEquals(null, coffeeMaker.deleteRecipe(0));
+	}
+	
+	/**
+	 * Given a coffee maker with one valid recipe 
+	 * When we edit the recipe it.
+	 * Then the recipe name should not change.
+	 */
+	@Test
+	public void testEditRecipe(){
+		coffeeMaker.addRecipe(recipe5);
+		assertEquals("Milo", coffeeMaker.editRecipe(0, recipe3));
+	}
+
+	/**
+	 * Given a coffee maker with one valid recipe
+	 * When we edit the recipe that not the recipe that we add.
+	 * Then we should get null.
+	 */
+	@Test 
+	public void testEditRecipeNotInList(){
+		coffeeMaker.addRecipe(recipe5);
+		assertEquals(null, coffeeMaker.editRecipe(1, recipe1));
+	}
+	
+	/**
+	 * Given a coffee maker with nothing
+	 * When we edit the recipe.
+	 * Then we should get null.
+	 */
+	@Test 
+	public void testEditRecipeInEmptyList(){
+		assertEquals(null, coffeeMaker.editRecipe(0, recipe1));
+	}
 	
 	/**
 	 * Given a coffee maker with the default inventory
@@ -130,6 +217,17 @@ public class CoffeeMakerTest {
 	public void testMakeCoffee() {
 		coffeeMaker.addRecipe(recipe1);
 		assertEquals(25, coffeeMaker.makeCoffee(0, 75));
+	}
+	
+	/**
+	 * Given a coffee maker with one valid recipe
+	 * When we make coffee, selecting the valid recipe but not deposit enough money
+	 * Then the user money should return.
+	 */
+	@Test
+	public void testMakeCoffeeButNotDepositEnoughMoney() {
+		coffeeMaker.addRecipe(recipe1);
+		assertEquals(49, coffeeMaker.makeCoffee(0, 49));
 	}
 
 }
