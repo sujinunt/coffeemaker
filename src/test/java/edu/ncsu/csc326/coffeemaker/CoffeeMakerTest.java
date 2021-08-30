@@ -106,6 +106,7 @@ public class CoffeeMakerTest {
 	
 	/**
 	 * Given a coffee maker with valid recipe
+	 * When we add recipe.
 	 * Then we not get any error.
 	 */
 	@Test
@@ -118,7 +119,8 @@ public class CoffeeMakerTest {
 	
 	/**
 	 * Given a coffee maker with duplicate recipe
-	 * Then we should get false because we got the same recipe.
+	 * When we add the same recipe.
+	 * Then we should get false.
 	 */
 	@Test
 	public void testAddDuplicateRecipe() {
