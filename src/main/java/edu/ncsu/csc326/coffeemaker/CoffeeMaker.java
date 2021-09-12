@@ -29,8 +29,8 @@ public class CoffeeMaker {
      *
      */
 	public CoffeeMaker() {
-	    recipeBook = new RecipeBook();
-		inventory = new Inventory();
+	    this.recipeBook = new RecipeBook();
+		this.inventory = new Inventory();
 	}
 	
     /**
