@@ -411,7 +411,7 @@ public class CoffeeMakerTest {
 	 */
 	@Test
 	public void testMakeCoffeeButNotDepositEnoughMoneyWithMockObject() {
-		when(mockCoffeeMakerObject.getRecipes()).thenReturn(new Recipe[0]);
+		when(mockCoffeeMakerObject.getRecipes()).thenReturn(new Recipe[1]);
 		assertEquals(49, mockCoffeeMakerObject.makeCoffee(0, 49));
 	}
 	
