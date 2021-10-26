@@ -21,14 +21,13 @@ package edu.ncsu.csc326.coffeemaker;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.ncsu.csc326.coffeemaker.exceptions.InventoryException;
 import edu.ncsu.csc326.coffeemaker.exceptions.RecipeException;
-
-import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for CoffeeMaker class.
@@ -411,7 +410,7 @@ public class CoffeeMakerTest {
 	 */
 	@Test
 	public void testMakeCoffeeButNotDepositEnoughMoneyWithMockObject() {
-		when(mockCoffeeMakerObject.getRecipes()).thenReturn(new Recipe[0]);
+		when(mockCoffeeMakerObject.getRecipes()).thenReturn(new Recipe[1]);
 		assertEquals(49, mockCoffeeMakerObject.makeCoffee(0, 49));
 	}
 	

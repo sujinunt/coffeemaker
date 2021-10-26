@@ -10,6 +10,6 @@ Scenario: add recipe
  	Then The recipe is gone
  	
  Scenario: purchase beverage
- 	Given Have Mocha recipe
- 	When I purchase Mocha price 100
- 	Then Paid 100 and I got change 25
+ 	Given Have Coffee recipe
+ 	When I purchase Coffee
+ 	Then Paid 75 and I got change 25
